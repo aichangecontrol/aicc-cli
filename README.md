@@ -17,6 +17,19 @@ node dist/index.js validate ../aicc-spec/examples/minimal.yaml
 node dist/index.js plan ../aicc-spec/examples/minimal.yaml
 ```
 
+If installed globally or linked, use the `aicc` command:
+
+```bash
+aicc validate ../aicc-spec/examples/minimal.yaml
+aicc plan ../aicc-spec/examples/minimal.yaml
+```
+
+## Exit codes
+
+- `0` valid
+- `1` invalid spec
+- `2` internal error
+
 ## Examples
 
 Validate a spec:

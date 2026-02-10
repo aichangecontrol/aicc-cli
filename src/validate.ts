@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import Ajv from "ajv";
+import { Ajv } from "ajv";
 import { loadSpec } from "./loadSpec.js";
 
 export type ValidationResult = {

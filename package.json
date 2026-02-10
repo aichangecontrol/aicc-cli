@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "bin": {
-    "aicc": "dist/index.js"
+    "aicc": "./dist/index.js"
   },
   "files": [
     "dist",

@@ -15,15 +15,20 @@ program
   .argument("<path>", "Path to AICC spec YAML")
   .description("Validate an AICC spec")
   .action((filePath: string) => {
-    const result = validateSpec(filePath);
-    if (!result.valid) {
-      console.error("Validation failed:");
-      for (const err of result.errors) {
-        console.error(`- ${err}`);
+    try {
+      const result = validateSpec(filePath);
+      if (!result.valid) {
+        console.error("Validation failed:");
+        for (const err of result.errors) {
+          console.error(`- ${err}`);
+        }
+        process.exit(1);
       }
-      process.exit(1);
+      console.log("Spec is valid.");
+    } catch (error) {
+      console.error("Internal error:", error instanceof Error ? error.message : error);
+      process.exit(2);
     }
-    console.log("Spec is valid.");
   });
 
 program
@@ -31,8 +36,13 @@ program
   .argument("<path>", "Path to AICC spec YAML")
   .description("Output a normalized plan JSON")
   .action((filePath: string) => {
-    const plan = buildPlan(filePath);
-    console.log(JSON.stringify(plan, null, 2));
+    try {
+      const plan = buildPlan(filePath);
+      console.log(JSON.stringify(plan, null, 2));
+    } catch (error) {
+      console.error("Internal error:", error instanceof Error ? error.message : error);
+      process.exit(2);
+    }
   });
 
 program.parse();
