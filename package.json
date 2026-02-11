@@ -4,13 +4,16 @@
   "license": "Apache-2.0",
   "type": "module",
   "bin": {
-    "aicc": "./dist/index.js"
+    "aicc": "dist/index.js"
   },
   "files": [
     "dist",
     "README.md",
     "LICENSE"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc",
     "test": "vitest run",
