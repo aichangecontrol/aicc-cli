@@ -24,11 +24,25 @@ aicc validate ../aicc-spec/examples/minimal.yaml
 aicc plan ../aicc-spec/examples/minimal.yaml
 ```
 
+## Plan examples
+
+```bash
+aicc plan spec.yaml
+aicc plan spec.yaml --json
+aicc plan spec.yaml --base origin/main
+```
+
 ## Exit codes
 
+Validate:
 - `0` valid
 - `1` invalid spec
 - `2` internal error
+
+Plan:
+- `0` plan computed, no violations
+- `1` plan computed, violations found
+- `2` spec invalid or environment error (missing git, bad refs)
 
 ## Examples
 
@@ -38,7 +52,7 @@ Validate a spec:
 node dist/index.js validate ../aicc-spec/examples/pr_safe_change.yaml
 ```
 
-Generate a normalized plan:
+Generate a plan summary:
 
 ```bash
 node dist/index.js plan ../aicc-spec/examples/migration_requires_approval.yaml
