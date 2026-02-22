@@ -9,12 +9,20 @@ export type ValidationResult = {
 };
 
 function loadSchema() {
-  const schemaPath = path.resolve(
-    path.dirname(new URL(import.meta.url).pathname),
-    "../../aicc-spec/schema.json"
-  );
-  const raw = fs.readFileSync(schemaPath, "utf-8");
-  return JSON.parse(raw);
+  const moduleDir = path.dirname(new URL(import.meta.url).pathname);
+  const candidates = [
+    path.resolve(moduleDir, "../../aicc-spec/schema.json"),
+    path.resolve(moduleDir, "../../../aicc-spec/schema.json"),
+  ];
+
+  for (const schemaPath of candidates) {
+    if (fs.existsSync(schemaPath)) {
+      const raw = fs.readFileSync(schemaPath, "utf-8");
+      return JSON.parse(raw);
+    }
+  }
+
+  throw new Error(`Unable to locate schema.json. Tried: ${candidates.join(", ")}`);
 }
 
 export function validateSpec(filePath: string): ValidationResult {
